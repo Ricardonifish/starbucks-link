@@ -5,7 +5,17 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": {
-        "maxDuration": 60
+        "maxDuration": 60,
+        "includeFiles": [
+          "index.html",
+          "compose.html",
+          "posts.html",
+          "styles.css",
+          "compose.css",
+          "i18n.js",
+          "compose.js",
+          "script.js"
+        ]
       }
     }
   ],
