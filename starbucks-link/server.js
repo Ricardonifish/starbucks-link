@@ -31,7 +31,8 @@ const PLATFORMS = {
     name: "小红书",
     style:
       "写成一篇可直接发的小红书笔记：先给吸引人的标题，再写口语化正文，适当用emoji，结尾给3-6个话题标签（#标签）。语气真诚、像真实顾客，不要硬广。",
-    publishUrl: "https://www.xiaohongshu.com/explore",
+    // 创作者中心 · 图文笔记发布页（需登录后可直接粘贴）
+    publishUrl: "https://creator.xiaohongshu.com/publish/imgNote",
   },
   google: {
     name: "Google Reviews",

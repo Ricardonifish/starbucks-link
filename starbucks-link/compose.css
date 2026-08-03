@@ -112,6 +112,18 @@ textarea.result-flash {
   line-height: 1.4;
 }
 
+.publish-steps {
+  margin: 0.65rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 0.82rem;
+  color: var(--sb-muted);
+  line-height: 1.55;
+}
+
+.publish-steps li + li {
+  margin-top: 0.2rem;
+}
+
 .btn.full {
   width: 100%;
   margin-top: 0.85rem;

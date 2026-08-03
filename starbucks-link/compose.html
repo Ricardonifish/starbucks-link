@@ -63,17 +63,22 @@
       <section class="compose-card success-card" id="successSection" hidden>
         <h2 data-i18n="compose.successTitle">已确认发表</h2>
         <p id="successMsg"></p>
-        <p class="hint" data-i18n="compose.successHint">文案已自动复制，并打开对应平台发布页。也可在下方查看本机已发表记录。</p>
+        <ol class="publish-steps hint" data-i18n="compose.successHint">
+          <li>文案已复制</li>
+          <li>已打开发布页</li>
+          <li>在输入框粘贴后发布</li>
+        </ol>
+        <p class="hint" id="pasteTip" data-i18n="compose.pasteTip">到发布页后：粘贴文案 → 如需可加图 → 点发布。</p>
         <div class="action-row">
           <a class="btn btn-outline grow" href="posts.html" data-i18n="compose.viewPosts">查看已发表</a>
-          <a class="btn btn-solid grow" id="openPlatformBtn" href="#" target="_blank" rel="noopener" data-i18n="compose.openPlatform">打开平台</a>
+          <a class="btn btn-solid grow" id="openPlatformBtn" href="#" target="_blank" rel="noopener" data-i18n="compose.openPlatform">再次打开发布页</a>
         </div>
       </section>
 
       <p class="status-line" id="statusLine" role="status"></p>
     </div>
 
-    <script src="i18n.js?v=2"></script>
-    <script src="compose.js?v=4"></script>
+    <script src="i18n.js?v=3"></script>
+    <script src="compose.js?v=5"></script>
   </body>
 </html>

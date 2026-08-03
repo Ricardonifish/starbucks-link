@@ -1,6 +1,14 @@
 const params = new URLSearchParams(window.location.search);
 const platform = params.get("platform") || "xiaohongshu";
 
+/** 各平台「发帖/写评价」入口（前端同步打开，避免被弹窗拦截） */
+const PUBLISH_URLS = {
+  xiaohongshu: "https://creator.xiaohongshu.com/publish/imgNote",
+  google: "https://www.google.com/maps/search/?api=1&query=Starbucks",
+  instagram: "https://www.instagram.com/",
+  yelp: "https://www.yelp.com/biz/starbucks-seattle-88",
+};
+
 let revision = 0;
 
 function $(id) {
@@ -39,6 +47,49 @@ function flashResult() {
   result.classList.add("result-flash");
   result.focus();
   result.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+/** 优先同步复制，保证仍在用户点击手势内，手机/电脑都更稳 */
+function copyTextNow(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0, ta.value.length);
+  let ok = false;
+  try {
+    ok = document.execCommand("copy");
+  } catch {
+    ok = false;
+  }
+  document.body.removeChild(ta);
+  return ok;
+}
+
+async function copyText(text) {
+  if (copyTextNow(text)) return true;
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    const result = $("result");
+    if (result) {
+      result.focus();
+      result.select();
+    }
+    return false;
+  }
+}
+
+function openPublishPage(url) {
+  if (!url) return null;
+  const openPlatformBtn = $("openPlatformBtn");
+  if (openPlatformBtn) openPlatformBtn.href = url;
+  // 在点击链路里尽快打开，降低弹窗拦截概率
+  return window.open(url, "_blank", "noopener,noreferrer");
 }
 
 async function callPolish({ revise }) {
@@ -164,8 +215,21 @@ async function requestPublish() {
     return;
   }
 
+  const publishUrl = PUBLISH_URLS[platform] || PUBLISH_URLS.xiaohongshu;
+
+  // 1) 先复制（仍在点击手势里）
+  const copied = await copyText(content);
+  if (copied) {
+    setStatus(t("compose.copiedOk"), "ok");
+  } else {
+    setStatus(t("compose.copyFail"), "error");
+  }
+
+  // 2) 立刻打开发布页（小红书 = 创作者中心图文发布）
+  openPublishPage(publishUrl);
+
   setBusy(true);
-  setStatus(t("compose.publishing"));
+  setStatus(copied ? t("compose.publishing") : t("compose.copyFail"), copied ? "" : "error");
 
   try {
     const response = await fetch("/api/publish", {
@@ -182,29 +246,34 @@ async function requestPublish() {
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || t("compose.fail"));
 
-    try {
-      await navigator.clipboard.writeText(content);
-    } catch {
-      // ignore
-    }
-
-    const publishUrl = data?.post?.publishUrl || data?.autoActions?.openPublishUrl;
-    const openPlatformBtn = $("openPlatformBtn");
-    if (publishUrl && openPlatformBtn) {
-      openPlatformBtn.href = publishUrl;
-      window.open(publishUrl, "_blank", "noopener");
+    // 服务端若返回更新后的发布链接，刷新按钮
+    const serverUrl = data?.post?.publishUrl || data?.autoActions?.openPublishUrl;
+    if (serverUrl && $("openPlatformBtn")) {
+      $("openPlatformBtn").href = serverUrl;
     }
 
     const successMsg = $("successMsg");
     const successSection = $("successSection");
-    if (successMsg) successMsg.textContent = data.message || t("compose.published");
+    if (successMsg) {
+      successMsg.textContent = copied
+        ? `${data.message || t("compose.published")} ${t("compose.pasteTip")}`
+        : t("compose.copyFail");
+    }
     if (successSection) {
       successSection.hidden = false;
       successSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    setStatus(t("compose.published"), "ok");
+    setStatus(copied ? t("compose.published") : t("compose.copyFail"), copied ? "ok" : "error");
   } catch (error) {
-    setStatus(error.message || t("compose.fail"), "error");
+    // 即使存档失败，复制+跳转已完成，仍提示可粘贴
+    setStatus(
+      copied
+        ? `${t("compose.published")}（${error.message || t("compose.fail")}）`
+        : error.message || t("compose.fail"),
+      copied ? "ok" : "error"
+    );
+    const successSection = $("successSection");
+    if (successSection) successSection.hidden = false;
   } finally {
     setBusy(false);
   }
