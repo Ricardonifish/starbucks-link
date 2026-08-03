@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>写评价 · Starbucks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="compose.css" />
+  </head>
+  <body class="compose-body" data-title-key="doc.composeTitle">
+    <button type="button" class="lang-switch" data-i18n-lang-btn aria-label="Switch language">EN</button>
+
+    <div class="page compose-page">
+      <header class="compose-top">
+        <a class="back-link" href="index.html" data-i18n="compose.back">← 返回</a>
+        <div>
+          <p class="compose-kicker" id="platformName">小红书</p>
+          <h1 data-i18n="compose.title">AI 帮你写成可发帖</h1>
+          <p class="compose-sub" data-i18n="compose.sub">写一句体验 → AI 帮你成文 → 不满意再改 → 确认发表</p>
+        </div>
+      </header>
+
+      <section class="compose-card">
+        <div class="step-badge">1</div>
+        <label class="field-label" for="draft" data-i18n="compose.draftLabel">写下你的真实体验</label>
+        <textarea
+          id="draft"
+          rows="5"
+          data-i18n-placeholder="compose.draftPh"
+          placeholder="例如：今天点了冰美式，浓缩很稳，店里有位置，适合办公……"
+        ></textarea>
+        <button type="button" class="btn btn-solid full" id="polishBtn" data-i18n="compose.polish">用 AI 润色成文</button>
+      </section>
+
+      <section class="compose-card result-card" id="resultSection" hidden>
+        <div class="step-badge">2</div>
+        <div class="result-head">
+          <label class="field-label" for="result" data-i18n="compose.resultLabel">可发布文案</label>
+          <span class="provider-tag" id="providerTag"></span>
+        </div>
+        <textarea id="result" rows="10"></textarea>
+
+        <label class="field-label" for="feedback" data-i18n="compose.feedbackLabel">不满意？告诉 AI 怎么改</label>
+        <textarea
+          id="feedback"
+          rows="2"
+          data-i18n-placeholder="compose.feedbackPh"
+          placeholder="例如：短一点、更口语、多提拿铁、少用emoji……"
+        ></textarea>
+
+        <div class="action-row">
+          <button type="button" class="btn btn-outline grow" id="reviseBtn" data-i18n="compose.revise">不满意，再改一版</button>
+          <button type="button" class="btn btn-solid grow" id="publishBtn" data-i18n="compose.confirm">确认并发表</button>
+        </div>
+      </section>
+
+      <section class="compose-card success-card" id="successSection" hidden>
+        <h2 data-i18n="compose.successTitle">已确认发表</h2>
+        <p id="successMsg"></p>
+        <p class="hint" data-i18n="compose.successHint">文案已自动复制，并打开对应平台发布页。也可在下方查看本机已发表记录。</p>
+        <div class="action-row">
+          <a class="btn btn-outline grow" href="posts.html" data-i18n="compose.viewPosts">查看已发表</a>
+          <a class="btn btn-solid grow" id="openPlatformBtn" href="#" target="_blank" rel="noopener" data-i18n="compose.openPlatform">打开平台</a>
+        </div>
+      </section>
+
+      <p class="status-line" id="statusLine" role="status"></p>
+    </div>
+
+    <script src="i18n.js?v=2"></script>
+    <script src="compose.js?v=4"></script>
+  </body>
+</html>

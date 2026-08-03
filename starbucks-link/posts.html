@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>已发表 · Starbucks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="compose.css" />
+  </head>
+  <body class="compose-body" data-title-key="doc.postsTitle">
+    <button type="button" class="lang-switch" data-i18n-lang-btn aria-label="Switch language">EN</button>
+
+    <div class="page compose-page">
+      <header class="compose-top">
+        <a class="back-link" href="index.html" data-i18n="posts.back">← 返回主页</a>
+        <h1 data-i18n="posts.title">已发表记录</h1>
+        <p class="compose-sub" data-i18n="posts.sub">确认发表后会保存在本地服务器</p>
+      </header>
+      <div class="posts-list" id="postsList"></div>
+      <p class="status-line" id="statusLine"></p>
+    </div>
+    <script src="i18n.js"></script>
+    <script>
+      const list = document.getElementById("postsList");
+      const statusLine = document.getElementById("statusLine");
+
+      function loadPosts() {
+        fetch("/api/posts")
+          .then((r) => r.json())
+          .then((data) => {
+            const posts = data.posts || [];
+            if (!posts.length) {
+              statusLine.textContent = window.SB_I18N.t("posts.empty");
+              list.innerHTML = "";
+              return;
+            }
+            statusLine.textContent = "";
+            list.innerHTML = posts
+              .map(
+                (post) => `
+            <article class="post-item">
+              <h3>${post.platformName || post.platform}</h3>
+              <p class="post-meta">${new Date(post.createdAt).toLocaleString()} · ${post.status}</p>
+              <pre>${post.content.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]))}</pre>
+            </article>`
+              )
+              .join("");
+          })
+          .catch(() => {
+            statusLine.textContent = window.SB_I18N.t("posts.loadFail");
+            statusLine.classList.add("error");
+          });
+      }
+
+      window.addEventListener("sb:langchange", loadPosts);
+      document.addEventListener("DOMContentLoaded", () => {
+        // i18n also binds on DOMContentLoaded; wait a tick
+        setTimeout(loadPosts, 0);
+      });
+    </script>
+  </body>
+</html>
