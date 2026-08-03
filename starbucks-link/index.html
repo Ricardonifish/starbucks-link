@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -16,12 +16,15 @@
     <button type="button" class="lang-switch" data-i18n-lang-btn aria-label="Switch language">EN</button>
 
     <div class="page">
-      <header class="hero">
-        <div class="hero-glow" aria-hidden="true"></div>
-        <div class="hero-pattern" aria-hidden="true"></div>
-        <p class="hero-kicker">Starbucks®</p>
-        <h1 class="hero-title" data-i18n="hero.title">Coffee worth sharing</h1>
-        <p class="hero-sub" data-i18n="hero.sub">Follow, rate, and order — all in one place.</p>
+      <header class="hero" aria-label="Starbucks">
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-steam"></div>
+          <div class="hero-cup">
+            <span class="cup-logo">★</span>
+          </div>
+          <div class="hero-beans"></div>
+        </div>
+        <p class="hero-brand">STARBUCKS</p>
       </header>
 
       <div class="logo-wrap">
@@ -103,24 +106,28 @@
             <article class="rate-card">
               <div class="rate-logo rednote-logo">小红书</div>
               <h3 data-i18n="rate.xhs">Publish a note</h3>
+              <p data-i18n="rate.sub">Rate your experience</p>
               <a class="btn btn-solid" href="compose.html?platform=xiaohongshu" data-i18n="btn.publish">Publish</a>
             </article>
 
             <article class="rate-card">
               <div class="rate-logo google-logo" aria-hidden="true">G</div>
               <h3 data-i18n="rate.google">Google reviews</h3>
+              <p data-i18n="rate.sub">Rate your experience</p>
               <a class="btn btn-solid" href="compose.html?platform=google" data-i18n="btn.review">Review</a>
             </article>
 
             <article class="rate-card">
               <div class="rate-logo ig-logo" aria-hidden="true"></div>
               <h3 data-i18n="rate.ig">Instagram Post</h3>
+              <p data-i18n="rate.sub">Rate your experience</p>
               <a class="btn btn-solid" href="compose.html?platform=instagram" data-i18n="btn.review">Review</a>
             </article>
 
             <article class="rate-card">
               <div class="rate-logo yelp-logo" aria-hidden="true">Y</div>
               <h3 data-i18n="rate.yelp">Yelp reviews</h3>
+              <p data-i18n="rate.sub">Rate your experience</p>
               <a class="btn btn-solid" href="compose.html?platform=yelp" data-i18n="btn.review">Review</a>
             </article>
           </div>
@@ -144,9 +151,8 @@
         </section>
 
         <section class="contact">
-          <h2 data-i18n="contact.title">Contact</h2>
+          <h2 data-i18n="contact.title">Contact Me</h2>
           <p data-i18n="contact.hours">Open hours: 6:00am – 9:00pm</p>
-          <a href="mailto:hello@starbucks.example">hello@starbucks.example</a>
         </section>
       </main>
 

@@ -12,6 +12,7 @@ const I18N = {
     "btn.follow": "Follow",
     "rate.aria": "Rate us",
     "rate.title": "Rate us",
+    "rate.sub": "Rate your experience",
     "rate.xhs": "Publish a note",
     "rate.google": "Google reviews",
     "rate.ig": "Instagram Post",
@@ -22,7 +23,7 @@ const I18N = {
     "order.cta": "Order here",
     "about.body":
       "From handcrafted espresso to seasonal favorites, Starbucks brings the third place experience to more than 38,000 stores worldwide — one cup at a time.",
-    "contact.title": "Contact",
+    "contact.title": "Contact Me",
     "contact.hours": "Open hours: 6:00am – 9:00pm",
     "footer.note": "Demo link page · Not an official Starbucks site",
     "lang.label": "中文",
@@ -77,6 +78,7 @@ const I18N = {
     "btn.follow": "关注",
     "rate.aria": "为我们评分",
     "rate.title": "为我们评分",
+    "rate.sub": "评价你的体验",
     "rate.xhs": "发布笔记",
     "rate.google": "Google 评价",
     "rate.ig": "Instagram 帖子",
@@ -87,7 +89,7 @@ const I18N = {
     "order.cta": "去点单",
     "about.body":
       "从手工浓缩到季节限定，星巴克把「第三空间」带到全球 38,000+ 家门店——一杯一杯，慢慢相遇。",
-    "contact.title": "联系我们",
+    "contact.title": "联系我",
     "contact.hours": "营业时间：上午 6:00 – 晚上 9:00",
     "footer.note": "演示链接页 · 非星巴克官方网站",
     "lang.label": "EN",

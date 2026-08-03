@@ -1,7 +1,5 @@
 .compose-body {
-  background:
-    radial-gradient(900px 480px at 50% -8%, #0d3b2e 0%, transparent 55%),
-    linear-gradient(180deg, #0b2a22 0%, #12382e 40%, #14241f 100%);
+  background: #000;
 }
 
 .compose-page {

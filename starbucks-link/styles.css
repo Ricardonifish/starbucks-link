@@ -2,16 +2,13 @@
   --sb-green: #00704a;
   --sb-green-deep: #1e3932;
   --sb-green-mid: #006241;
-  --sb-cream: #f2ebe3;
   --sb-foam: #fff8f0;
   --sb-gold: #c2a661;
-  --sb-ink: #1e3932;
-  --sb-muted: #5c6b66;
+  --sb-ink: #111111;
+  --sb-muted: #6b7280;
   --sb-card: #ffffff;
   --radius-pill: 999px;
-  --radius-card: 18px;
-  --shadow: 0 12px 32px rgba(30, 57, 50, 0.18);
-  --font-display: "Fraunces", Georgia, serif;
+  --radius-card: 16px;
   --font-body: "Outfit", system-ui, sans-serif;
 }
 
@@ -30,9 +27,7 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--sb-ink);
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #0d3b2e 0%, transparent 55%),
-    linear-gradient(180deg, #0b2a22 0%, #12382e 28%, #1a2f2a 55%, #14241f 100%);
+  background: #000;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -45,7 +40,6 @@ a {
   width: min(430px, 100%);
   margin: 0 auto;
   padding-bottom: 2.5rem;
-  animation: page-in 0.7s ease both;
 }
 
 .lang-switch {
@@ -54,108 +48,112 @@ a {
   right: 14px;
   z-index: 20;
   min-width: 52px;
-  height: 36px;
-  padding: 0 0.85rem;
-  border: 1px solid rgba(194, 166, 97, 0.55);
+  height: 34px;
+  padding: 0 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
-  background: rgba(30, 57, 50, 0.88);
-  color: var(--sb-gold);
-  font: 600 0.85rem/1 var(--font-body);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font: 600 0.82rem/1 var(--font-body);
   cursor: pointer;
-  backdrop-filter: blur(8px);
-  transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.lang-switch:hover {
-  transform: translateY(-1px);
-  background: rgba(0, 112, 74, 0.95);
-}
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* —— Hero —— */
+/* —— Hero banner（对齐原版：大图头图，不是文案落地） —— */
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: 280px;
-  padding: 3.2rem 1.5rem 4.5rem;
-  color: var(--sb-foam);
-  text-align: center;
+  height: 220px;
+  display: grid;
+  place-items: center;
   background:
-    linear-gradient(160deg, rgba(0, 112, 74, 0.92), rgba(30, 57, 50, 0.88)),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23c2a661' stroke-opacity='0.18' stroke-width='1'%3E%3Ccircle cx='80' cy='80' r='54'/%3E%3Ccircle cx='80' cy='80' r='34'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: cover, 120px 120px;
+    radial-gradient(circle at 50% 120%, rgba(194, 166, 97, 0.35), transparent 42%),
+    linear-gradient(160deg, #0a5c3c 0%, #00704a 45%, #1e3932 100%);
 }
 
-.hero-glow {
+.hero-art {
   position: absolute;
-  inset: -20% 10% auto;
-  height: 180px;
-  background: radial-gradient(circle, rgba(194, 166, 97, 0.35), transparent 70%);
-  filter: blur(8px);
-  animation: glow-pulse 4.5s ease-in-out infinite;
+  inset: 0;
+  display: grid;
+  place-items: center;
 }
 
-.hero-pattern {
+.hero-cup {
+  width: 92px;
+  height: 110px;
+  border-radius: 10px 10px 18px 18px;
+  background: linear-gradient(180deg, #fff 0 18%, #00704a 18% 100%);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.hero-cup::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  top: 28px;
+  width: 22px;
+  height: 36px;
+  border: 4px solid #fff;
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+}
+
+.cup-logo {
+  margin-top: 18px;
+  color: #c2a661;
+  font-size: 1.6rem;
+}
+
+.hero-steam {
+  position: absolute;
+  top: 28px;
+  width: 60px;
+  height: 40px;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.55), transparent 40%),
+    radial-gradient(circle at 55% 60%, rgba(255, 255, 255, 0.4), transparent 42%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.35), transparent 40%);
+  filter: blur(1px);
+  animation: steam 3s ease-in-out infinite;
+}
+
+.hero-beans {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 18% 80%, rgba(255, 248, 240, 0.08), transparent 28%),
-    radial-gradient(circle at 86% 30%, rgba(194, 166, 97, 0.16), transparent 24%);
-  pointer-events: none;
+    radial-gradient(circle at 12% 78%, #5c3a21 0 6px, transparent 7px),
+    radial-gradient(circle at 86% 72%, #5c3a21 0 7px, transparent 8px),
+    radial-gradient(circle at 78% 30%, rgba(194, 166, 97, 0.5) 0 5px, transparent 6px),
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.25) 0 4px, transparent 5px);
+  opacity: 0.9;
 }
 
-@keyframes glow-pulse {
+.hero-brand {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  margin-top: 88px;
+  color: rgba(255, 248, 240, 0.92);
+  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+@keyframes steam {
   0%,
   100% {
+    transform: translateY(0);
     opacity: 0.55;
-    transform: scale(1);
   }
   50% {
+    transform: translateY(-8px);
     opacity: 1;
-    transform: scale(1.08);
   }
 }
 
-.hero-kicker {
-  position: relative;
-  margin: 0 0 0.75rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--sb-gold);
-}
-
-.hero-title {
-  position: relative;
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 8vw, 2.6rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.hero-sub {
-  position: relative;
-  margin: 0.85rem auto 0;
-  max-width: 16rem;
-  font-size: 0.98rem;
-  line-height: 1.45;
-  color: rgba(255, 248, 240, 0.82);
-}
-
-/* —— Logo —— */
+/* —— Logo overlap —— */
 .logo-wrap {
   display: flex;
   justify-content: center;
@@ -168,10 +166,9 @@ a {
   width: 84px;
   height: 84px;
   border-radius: 50%;
-  background: var(--sb-foam);
+  background: #fff;
   padding: 4px;
-  box-shadow: var(--shadow);
-  animation: logo-pop 0.8s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .logo svg {
@@ -180,22 +177,11 @@ a {
   height: 100%;
 }
 
-@keyframes logo-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* —— Content —— */
 .content {
-  padding: 1.25rem 1.1rem 0;
+  padding: 1.15rem 1.1rem 0;
 }
 
+/* —— Social pills（原版白胶囊） —— */
 .socials {
   display: grid;
   gap: 0.75rem;
@@ -203,15 +189,12 @@ a {
 
 .social {
   border-radius: var(--radius-pill);
-  background: var(--sb-card);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background: #fff;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .social[open] {
   border-radius: 22px;
-  box-shadow: var(--shadow);
 }
 
 .social summary {
@@ -232,6 +215,7 @@ a {
 .social-name {
   font-weight: 600;
   font-size: 1.02rem;
+  text-align: center;
 }
 
 .social-icon {
@@ -255,14 +239,7 @@ a {
 }
 
 .social-icon.ig {
-  background: conic-gradient(
-    from 210deg,
-    #f58529,
-    #dd2a7b,
-    #8134af,
-    #515bd4,
-    #f58529
-  );
+  background: conic-gradient(from 210deg, #f58529, #dd2a7b, #8134af, #515bd4, #f58529);
   position: relative;
 }
 
@@ -272,7 +249,6 @@ a {
   height: 14px;
   border: 2px solid #fff;
   border-radius: 5px;
-  box-shadow: 0 0 0 2px transparent;
 }
 
 .chevron {
@@ -298,18 +274,6 @@ a {
   gap: 0.75rem;
   padding: 0 1.1rem 1rem;
   border-top: 1px solid #eef2f0;
-  animation: panel-in 0.28s ease;
-}
-
-@keyframes panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .social-handle {
@@ -323,7 +287,6 @@ a {
   color: var(--sb-muted);
 }
 
-/* —— Buttons —— */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -334,15 +297,6 @@ a {
   border-radius: var(--radius-pill);
   font-size: 0.88rem;
   font-weight: 600;
-  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-}
-
-.btn:active {
-  transform: translateY(0);
 }
 
 .btn-outline {
@@ -351,23 +305,15 @@ a {
   background: transparent;
 }
 
-.btn-outline:hover {
-  background: var(--sb-green);
-  color: #fff;
-}
-
 .btn-solid {
   width: 100%;
   height: 40px;
   background: var(--sb-green);
   color: #fff;
+  border: none;
 }
 
-.btn-solid:hover {
-  background: var(--sb-green-mid);
-}
-
-/* —— Rate —— */
+/* —— Rate us —— */
 .rate {
   margin-top: 1.75rem;
 }
@@ -376,8 +322,7 @@ a {
   position: relative;
   margin: 0 0 1rem;
   text-align: center;
-  color: var(--sb-foam);
-  font-family: var(--font-display);
+  color: #fff;
   font-size: 1.55rem;
   font-weight: 700;
 }
@@ -411,23 +356,19 @@ a {
 .hearts i::before {
   left: -5px;
 }
-
 .hearts i::after {
   top: -5px;
 }
 
 .hearts i:nth-child(1) {
   left: 18%;
-  animation-delay: 0s;
 }
-
 .hearts i:nth-child(2) {
   right: 20%;
   width: 8px;
   height: 8px;
   animation-delay: 0.6s;
 }
-
 .hearts i:nth-child(3) {
   left: 62%;
   top: -14px;
@@ -453,41 +394,21 @@ a {
 }
 
 .rate-card {
-  background: var(--sb-card);
+  background: #fff;
   border-radius: var(--radius-card);
   padding: 1rem 0.9rem 0.95rem;
   text-align: center;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
-  animation: card-rise 0.55s ease both;
-}
-
-.rate-card:nth-child(1) {
-  animation-delay: 0.05s;
-}
-.rate-card:nth-child(2) {
-  animation-delay: 0.12s;
-}
-.rate-card:nth-child(3) {
-  animation-delay: 0.19s;
-}
-.rate-card:nth-child(4) {
-  animation-delay: 0.26s;
-}
-
-@keyframes card-rise {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .rate-card h3 {
-  margin: 0.55rem 0 0.85rem;
+  margin: 0.55rem 0 0.2rem;
   font-size: 0.95rem;
+}
+
+.rate-card p {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  color: var(--sb-muted);
 }
 
 .rate-logo {
@@ -504,9 +425,7 @@ a {
 
 .rednote-logo {
   background: #ff2442;
-  letter-spacing: -0.02em;
 }
-
 .google-logo {
   background: #fff;
   color: #4285f4;
@@ -515,19 +434,10 @@ a {
   font-size: 1.35rem;
   font-weight: 700;
 }
-
 .ig-logo {
-  background: conic-gradient(
-    from 210deg,
-    #f58529,
-    #dd2a7b,
-    #8134af,
-    #515bd4,
-    #f58529
-  );
+  background: conic-gradient(from 210deg, #f58529, #dd2a7b, #8134af, #515bd4, #f58529);
   position: relative;
 }
-
 .ig-logo::after {
   content: "";
   width: 16px;
@@ -535,68 +445,47 @@ a {
   border: 2px solid #fff;
   border-radius: 6px;
 }
-
 .yelp-logo {
   background: #d32323;
   font-size: 1.2rem;
   font-weight: 800;
 }
 
-/* —— Order —— */
+/* —— Order / About / Contact —— */
 .order {
   margin-top: 1.6rem;
-  padding: 1.35rem 1.2rem;
-  border-radius: 22px;
+  padding: 1.2rem;
   text-align: center;
-  color: var(--sb-foam);
-  background:
-    linear-gradient(135deg, rgba(0, 112, 74, 0.55), rgba(30, 57, 50, 0.75)),
-    repeating-linear-gradient(
-      -18deg,
-      transparent,
-      transparent 10px,
-      rgba(194, 166, 97, 0.05) 10px,
-      rgba(194, 166, 97, 0.05) 11px
-    );
-  border: 1px solid rgba(194, 166, 97, 0.28);
+  color: #fff;
 }
 
 .order-eyebrow {
-  margin: 0 0 0.55rem;
-  font-size: 0.9rem;
-  color: rgba(255, 248, 240, 0.78);
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .order-cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-display);
+  gap: 0.35rem;
   font-size: 1.35rem;
   font-weight: 700;
-  color: var(--sb-gold);
-  transition: gap 0.2s ease, color 0.2s ease;
+  color: #fff;
 }
 
-.order-cta:hover {
-  gap: 0.7rem;
-  color: #e2c98a;
-}
-
-/* —— About / Contact —— */
 .about,
 .contact {
-  margin-top: 1.5rem;
+  margin-top: 1.35rem;
   text-align: center;
-  color: rgba(255, 248, 240, 0.9);
+  color: #fff;
 }
 
 .about h2,
 .contact h2 {
-  margin: 0 0 0.55rem;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  letter-spacing: 0.08em;
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
 }
 
 .about p,
@@ -605,29 +494,12 @@ a {
   max-width: 22rem;
   font-size: 0.92rem;
   line-height: 1.55;
-  color: rgba(255, 248, 240, 0.72);
-}
-
-.contact a {
-  display: inline-block;
-  margin-top: 0.55rem;
-  color: var(--sb-gold);
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .footer {
   margin-top: 2rem;
   text-align: center;
   font-size: 0.75rem;
-  color: rgba(255, 248, 240, 0.4);
-}
-
-@media (min-width: 480px) {
-  .page {
-    padding-top: 1.25rem;
-  }
-
-  .hero {
-    border-radius: 28px 28px 0 0;
-  }
+  color: rgba(255, 255, 255, 0.35);
 }
