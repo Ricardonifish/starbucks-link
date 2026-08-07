@@ -21,6 +21,8 @@ const DATA_DIR =
     ? path.join("/tmp", "starbucks-link-data")
     : path.join(__dirname, "data");
 const POSTS_FILE = path.join(DATA_DIR, "posts.json");
+const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
+const MENU_FILE = path.join(__dirname, "menu.json");
 
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
@@ -57,6 +59,7 @@ const PLATFORMS = {
 function ensureDataStore() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
   if (!fs.existsSync(POSTS_FILE)) fs.writeFileSync(POSTS_FILE, "[]", "utf8");
+  if (!fs.existsSync(ORDERS_FILE)) fs.writeFileSync(ORDERS_FILE, "[]", "utf8");
 }
 
 function readPosts() {
@@ -71,6 +74,30 @@ function readPosts() {
 function writePosts(posts) {
   ensureDataStore();
   fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2), "utf8");
+}
+
+function readOrders() {
+  ensureDataStore();
+  try {
+    return JSON.parse(fs.readFileSync(ORDERS_FILE, "utf8"));
+  } catch {
+    return [];
+  }
+}
+
+function writeOrders(orders) {
+  ensureDataStore();
+  fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2), "utf8");
+}
+
+function readMenu() {
+  try {
+    return JSON.parse(fs.readFileSync(MENU_FILE, "utf8"));
+  } catch (error) {
+    const err = new Error("菜单文件读取失败，请检查 menu.json");
+    err.status = 500;
+    throw err;
+  }
 }
 
 function resolveApiKey() {
@@ -607,6 +634,84 @@ app.post("/api/publish", (req, res) => {
 
 app.get("/api/posts", (_req, res) => {
   res.json({ posts: readPosts() });
+});
+
+app.get("/api/menu", (_req, res) => {
+  try {
+    res.json({ ok: true, menu: readMenu() });
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message || "菜单加载失败" });
+  }
+});
+
+app.get("/api/orders", (_req, res) => {
+  res.json({ orders: readOrders().slice(0, 50) });
+});
+
+app.post("/api/orders", (req, res) => {
+  try {
+    const body = req.body || {};
+    const items = Array.isArray(body.items) ? body.items : [];
+    if (!items.length) {
+      return res.status(400).json({ error: "购物车是空的" });
+    }
+
+    const menu = readMenu();
+    const currency = menu.currency || "¥";
+    let total = 0;
+    const normalized = items.map((raw, index) => {
+      const qty = Math.max(1, Math.min(99, Number(raw.qty) || 1));
+      const unitPrice = Number(raw.unitPrice);
+      if (!Number.isFinite(unitPrice) || unitPrice < 0) {
+        throw Object.assign(new Error(`第 ${index + 1} 项价格无效`), { status: 400 });
+      }
+      const lineTotal = Math.round(unitPrice * qty * 100) / 100;
+      total += lineTotal;
+      return {
+        id: String(raw.id || `item_${index}`),
+        name: String(raw.name || "Item").slice(0, 80),
+        qty,
+        unitPrice,
+        lineTotal,
+        options: raw.options && typeof raw.options === "object" ? raw.options : {},
+        note: String(raw.note || "").slice(0, 120),
+      };
+    });
+
+    total = Math.round(total * 100) / 100;
+    const order = {
+      id: `ord_${Date.now()}`,
+      code: String(1000 + (readOrders().length % 9000)),
+      storeId: menu.store?.id || "demo",
+      table: String(body.table || "").slice(0, 20),
+      remark: String(body.remark || "").slice(0, 200),
+      items: normalized,
+      total,
+      currency,
+      status: "received",
+      createdAt: new Date().toISOString(),
+    };
+
+    const orders = readOrders();
+    orders.unshift(order);
+    writeOrders(orders.slice(0, 200));
+
+    res.json({
+      ok: true,
+      order,
+      message: `下单成功 · 取餐号 ${order.code}`,
+      next: {
+        reviewUrl: "/compose.html?platform=xiaohongshu&from=order",
+      },
+    });
+  } catch (error) {
+    res.status(error.status || 500).json({ error: error.message || "下单失败" });
+  }
+});
+
+app.get(["/scan", "/order"], (req, res) => {
+  const q = req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "";
+  res.redirect(`/order.html${q}`);
 });
 
 app.get("*", (req, res, next) => {

@@ -10,11 +10,15 @@
           "index.html",
           "compose.html",
           "posts.html",
+          "order.html",
           "styles.css",
           "compose.css",
+          "order.css",
           "i18n.js",
           "compose.js",
-          "script.js"
+          "script.js",
+          "order.js",
+          "menu.json"
         ]
       }
     }

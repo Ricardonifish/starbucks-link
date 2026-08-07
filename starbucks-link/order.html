@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>扫码点单 · Starbucks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="order.css" />
+  </head>
+  <body>
+    <header class="order-top">
+      <a class="back" href="index.html" aria-label="返回首页">←</a>
+      <div class="store-meta">
+        <p class="store-kicker" id="storeKicker">扫码点单</p>
+        <h1 id="storeName">Starbucks</h1>
+        <p class="store-sub" id="storeSub"></p>
+      </div>
+      <button type="button" class="lang-btn" id="langBtn">EN</button>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab active" data-tab="menu" role="tab">点单</button>
+      <button type="button" class="tab" data-tab="orders" role="tab">订单</button>
+      <button type="button" class="tab" data-tab="review" role="tab">评价</button>
+    </nav>
+
+    <main class="order-main">
+      <section id="panelMenu" class="panel active">
+        <aside class="cats" id="catList" aria-label="分类"></aside>
+        <div class="menu-scroll" id="menuScroll">
+          <div id="menuSections"></div>
+        </div>
+      </section>
+
+      <section id="panelOrders" class="panel">
+        <div class="orders-wrap" id="ordersList">
+          <p class="empty">还没有订单，先去点一杯吧</p>
+        </div>
+      </section>
+
+      <section id="panelReview" class="panel">
+        <div class="review-card">
+          <h2>喝完了？写一句评价</h2>
+          <p>AI 帮你润色成可发的小红书 / Google / Instagram / Yelp 文案</p>
+          <a class="btn solid" href="compose.html?platform=xiaohongshu&from=order">去写评价</a>
+          <a class="btn ghost" href="index.html#rate">查看全部评价入口</a>
+        </div>
+      </section>
+    </main>
+
+    <div class="cart-bar" id="cartBar" hidden>
+      <button type="button" class="cart-summary" id="openCartBtn">
+        <span class="cart-badge" id="cartCount">0</span>
+        <span id="cartTotalLabel">¥0</span>
+      </button>
+      <button type="button" class="btn solid cart-checkout" id="checkoutBtn">去结算</button>
+    </div>
+
+    <!-- 规格弹层 -->
+    <div class="sheet" id="specSheet" hidden>
+      <button type="button" class="sheet-backdrop" id="closeSpec" aria-label="关闭"></button>
+      <div class="sheet-panel" role="dialog" aria-modal="true">
+        <div class="spec-hero" id="specHero"></div>
+        <h2 id="specTitle"></h2>
+        <p class="spec-desc" id="specDesc"></p>
+        <div id="specOptions"></div>
+        <label class="note-label" for="itemNote">备注</label>
+        <input id="itemNote" type="text" maxlength="40" placeholder="例如：少冰、分开打包" />
+        <div class="spec-footer">
+          <div class="qty">
+            <button type="button" id="qtyMinus" aria-label="减少">−</button>
+            <span id="qtyValue">1</span>
+            <button type="button" id="qtyPlus" aria-label="增加">+</button>
+          </div>
+          <button type="button" class="btn solid" id="addCartBtn">加入购物车 · ¥0</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 购物车抽屉 -->
+    <div class="sheet" id="cartSheet" hidden>
+      <button type="button" class="sheet-backdrop" id="closeCart" aria-label="关闭"></button>
+      <div class="sheet-panel cart-panel" role="dialog" aria-modal="true">
+        <div class="cart-head">
+          <h2>购物车</h2>
+          <button type="button" class="text-btn" id="clearCart">清空</button>
+        </div>
+        <div id="cartItems"></div>
+        <label class="note-label" for="orderRemark">整单备注</label>
+        <input id="orderRemark" type="text" maxlength="80" placeholder="例如：打包、尽快" />
+        <button type="button" class="btn solid full" id="submitOrderBtn">提交订单</button>
+      </div>
+    </div>
+
+    <!-- 下单成功 -->
+    <div class="sheet" id="successSheet" hidden>
+      <button type="button" class="sheet-backdrop" id="closeSuccess" aria-label="关闭"></button>
+      <div class="sheet-panel success-panel" role="dialog" aria-modal="true">
+        <p class="ok-kicker">下单成功</p>
+        <h2 id="successCode">取餐号 —</h2>
+        <p id="successMsg">门店已收到订单</p>
+        <div class="success-actions">
+          <a class="btn solid" id="reviewAfterOrder" href="compose.html?platform=xiaohongshu&from=order">去写评价</a>
+          <button type="button" class="btn ghost" id="keepOrdering">继续点单</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="toast" id="toast" hidden></p>
+
+    <script src="order.js"></script>
+  </body>
+</html>

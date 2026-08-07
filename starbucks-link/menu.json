@@ -1,0 +1,151 @@
+{
+  "store": {
+    "id": "sb-demo-01",
+    "name": "Starbucks Demo Store",
+    "nameZh": "星巴克 · 演示门店",
+    "tagline": "Scan · Order · Sip",
+    "taglineZh": "扫码点单 · 即刻出品",
+    "hours": "6:00am – 9:00pm",
+    "hoursZh": "上午 6:00 – 晚上 9:00",
+    "address": "Demo Street 88",
+    "addressZh": "演示路 88 号"
+  },
+  "currency": "¥",
+  "categories": [
+    {
+      "id": "classic",
+      "name": "Classic Coffee",
+      "nameZh": "经典咖啡",
+      "items": [
+        {
+          "id": "americano-iced",
+          "name": "Iced Americano",
+          "nameZh": "冰美式",
+          "desc": "Bold espresso over ice",
+          "descZh": "浓缩拉长，冰爽干净",
+          "price": 28,
+          "tag": "HOT",
+          "tagZh": "人气",
+          "color": "#1E3932",
+          "emoji": "🧊"
+        },
+        {
+          "id": "latte",
+          "name": "Caffè Latte",
+          "nameZh": "拿铁",
+          "desc": "Espresso with steamed milk",
+          "descZh": "丝滑牛奶裹住浓缩",
+          "price": 32,
+          "tag": "",
+          "tagZh": "",
+          "color": "#C2A661",
+          "emoji": "🥛"
+        },
+        {
+          "id": "cappuccino",
+          "name": "Cappuccino",
+          "nameZh": "卡布奇诺",
+          "desc": "Thick foam, rich espresso",
+          "descZh": "厚奶泡，咖啡感更强",
+          "price": 32,
+          "color": "#00704A",
+          "emoji": "☕"
+        }
+      ]
+    },
+    {
+      "id": "seasonal",
+      "name": "Seasonal",
+      "nameZh": "季节特饮",
+      "items": [
+        {
+          "id": "matcha-latte",
+          "name": "Matcha Latte",
+          "nameZh": "抹茶拿铁",
+          "desc": "Ceremonial-style matcha",
+          "descZh": "清苦回甘的抹茶牛奶",
+          "price": 36,
+          "tag": "NEW",
+          "tagZh": "上新",
+          "color": "#3D6B4F",
+          "emoji": "🍵"
+        },
+        {
+          "id": "caramel-macchiato",
+          "name": "Caramel Macchiato",
+          "nameZh": "焦糖玛奇朵",
+          "desc": "Vanilla, espresso, caramel",
+          "descZh": "香草奶底 + 浓缩 + 焦糖",
+          "price": 38,
+          "color": "#8B5A2B",
+          "emoji": "🍮"
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "name": "Bakery",
+      "nameZh": "轻食烘焙",
+      "items": [
+        {
+          "id": "butter-croissant",
+          "name": "Butter Croissant",
+          "nameZh": "黄油可颂",
+          "desc": "Flaky layers, warm",
+          "descZh": "层次酥香，适合配咖啡",
+          "price": 22,
+          "color": "#D4A574",
+          "emoji": "🥐"
+        },
+        {
+          "id": "chicken-panini",
+          "name": "Chicken Panini",
+          "nameZh": "鸡肉帕尼尼",
+          "desc": "Grilled, hearty",
+          "descZh": "热压香脆，一份刚好",
+          "price": 34,
+          "color": "#6B4F3A",
+          "emoji": "🥪"
+        }
+      ]
+    }
+  ],
+  "optionGroups": [
+    {
+      "id": "size",
+      "name": "Size",
+      "nameZh": "杯型",
+      "required": true,
+      "appliesTo": ["classic", "seasonal"],
+      "choices": [
+        { "id": "tall", "name": "Tall", "nameZh": "中杯", "price": 0 },
+        { "id": "grande", "name": "Grande", "nameZh": "大杯", "price": 3 },
+        { "id": "venti", "name": "Venti", "nameZh": "超大杯", "price": 6 }
+      ]
+    },
+    {
+      "id": "ice",
+      "name": "Ice",
+      "nameZh": "冰量",
+      "required": true,
+      "appliesTo": ["classic", "seasonal"],
+      "choices": [
+        { "id": "less", "name": "Less ice", "nameZh": "少冰", "price": 0 },
+        { "id": "normal", "name": "Regular", "nameZh": "正常冰", "price": 0 },
+        { "id": "no", "name": "No ice", "nameZh": "去冰", "price": 0 }
+      ]
+    },
+    {
+      "id": "sweetness",
+      "name": "Sweetness",
+      "nameZh": "甜度",
+      "required": true,
+      "appliesTo": ["seasonal"],
+      "choices": [
+        { "id": "0", "name": "0%", "nameZh": "无糖", "price": 0 },
+        { "id": "50", "name": "50%", "nameZh": "半糖", "price": 0 },
+        { "id": "100", "name": "100%", "nameZh": "正常糖", "price": 0 }
+      ]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ const I18N = {
     "btn.review": "Review",
     "order.eyebrow": "Everyone is drinking",
     "order.cta": "Order here",
+    "order.hint": "Scan QR → in-page menu → checkout → write a review",
     "about.body":
       "From handcrafted espresso to seasonal favorites, Starbucks brings the third place experience to more than 38,000 stores worldwide — one cup at a time.",
     "contact.title": "Contact Me",
@@ -90,6 +91,7 @@ const I18N = {
     "btn.review": "评价",
     "order.eyebrow": "大家都在喝",
     "order.cta": "去点单",
+    "order.hint": "扫码进店 → 网页点单 → 结算 → 写评价",
     "about.body":
       "从手工浓缩到季节限定，星巴克把「第三空间」带到全球 38,000+ 家门店——一杯一杯，慢慢相遇。",
     "contact.title": "联系我",
